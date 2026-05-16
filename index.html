@@ -1,0 +1,137 @@
+
+<style>
+  .fw-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+    background: #fff;
+    min-height: 520px;
+  }
+  .fw-svg-container {
+    position: relative;
+    width: 460px;
+    height: 460px;
+    flex-shrink: 0;
+  }
+  #fw-svg { width: 100%; height: 100%; overflow: visible; }
+  .fw-detail { width: 210px; margin-left: 2.5rem; flex-shrink: 0; }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fw-detail-inner { animation: fadeSlide 0.35s ease; }
+  .fw-detail-num { font-family: Arial, sans-serif; font-size: 28px; font-weight: 700; color: #7B1D2E; margin: 0 0 6px; line-height: 1; }
+  .fw-detail-role { font-family: Arial, sans-serif; font-size: 9px; font-weight: 400; letter-spacing: 0.22em; color: #7B1D2E; text-transform: uppercase; margin: 0 0 4px; }
+  .fw-detail-title { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #1a1a1a; text-transform: uppercase; margin: 0 0 14px; border-bottom: 0.5px solid #e0dbd6; padding-bottom: 12px; }
+  .fw-detail-body { font-family: Arial, sans-serif; font-size: 12px; font-weight: 400; color: #666; line-height: 1.75; margin: 0; }
+</style>
+
+<div class="fw-wrap">
+  <div class="fw-svg-container">
+    <svg id="fw-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="250" cy="250" r="185" fill="none" stroke="#ccc" stroke-width="1"/>
+      <circle cx="250" cy="250" r="75" fill="none" stroke="#ccc" stroke-width="0.5" stroke-dasharray="3 4"/>
+      <text x="250" y="224" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#7B1D2E">THE BLACKTOWER</text>
+      <text x="250" y="248" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#7B1D2E">GOVERNANCE</text>
+      <text x="250" y="272" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#7B1D2E">FLYWHEEL™</text>
+      <polyline id="trail" points="" fill="none" stroke="#7B1D2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+      <g id="n1" style="cursor:pointer" onclick="selectNode(1)">
+        <circle id="c1" cx="250" cy="65" r="40" fill="#888"/>
+        <text x="250" y="65" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">01</text>
+      </g>
+      <text x="250" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" letter-spacing="3" fill="#7B1D2E">THE AXIS</text>
+      <text x="250" y="133" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="#2a2a2a">GOVERNANCE</text>
+      <g id="n2" style="cursor:pointer" onclick="selectNode(2)">
+        <circle id="c2" cx="415" cy="335" r="40" fill="#888"/>
+        <text x="415" y="335" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">02</text>
+      </g>
+      <text x="415" y="388" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" letter-spacing="3" fill="#7B1D2E">THE MOMENTUM</text>
+      <text x="415" y="403" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="#2a2a2a">PORTFOLIO ADVISORY</text>
+      <g id="n3" style="cursor:pointer" onclick="selectNode(3)">
+        <circle id="c3" cx="85" cy="335" r="40" fill="#888"/>
+        <text x="85" y="335" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">03</text>
+      </g>
+      <text x="85" y="388" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" letter-spacing="3" fill="#7B1D2E">THE CALIBRATION</text>
+      <text x="85" y="403" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="#2a2a2a">RISK INTELLIGENCE</text>
+    </svg>
+  </div>
+
+  <div class="fw-detail">
+    <div class="fw-detail-inner" id="fw-detail-inner">
+      <p class="fw-detail-num" id="fw-num">01</p>
+      <p class="fw-detail-role" id="fw-role">The Axis</p>
+      <p class="fw-detail-title" id="fw-title">Governance</p>
+      <p class="fw-detail-body" id="fw-body">Investment Policy Statement, delegation of authority matrices, and committee charters. Every decision operates within strictly formalized normative parameters.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const nodeData = {
+  1: { num:'01', role:'The Axis',        title:'Governance',        body:'Investment Policy Statement, delegation of authority matrices, and committee charters. Every decision operates within strictly formalized normative parameters.' },
+  2: { num:'02', role:'The Momentum',    title:'Portfolio Advisory', body:'Strategic and tactical asset allocation within approved risk parameters. Rigorous evaluation of external manager mandates. Every action is pre-trade validated.' },
+  3: { num:'03', role:'The Calibration', title:'Risk Intelligence',  body:'Independent stress-testing of every decision prior to execution. Outputs feed directly back into the Governance loop — closing the system.' }
+};
+
+const nodes = [{ id:1, cx:250, cy:65 }, { id:2, cx:415, cy:335 }, { id:3, cx:85, cy:335 }];
+const ACTIVE = '#7B1D2E', IDLE = '#888', TRIGGER = 55, TRAIL_LEN = 90;
+let activeNode = null, trailPts = [], angle = -90;
+
+const mainSvg = document.getElementById('fw-svg');
+const trail   = document.getElementById('trail');
+const dotEl   = document.createElementNS('http://www.w3.org/2000/svg','circle');
+dotEl.setAttribute('r','9');
+dotEl.setAttribute('fill','#7B1D2E');
+dotEl.setAttribute('pointer-events','none');
+mainSvg.insertBefore(dotEl, document.getElementById('n1'));
+
+function setColor(id, color) { document.getElementById('c'+id).setAttribute('fill', color); }
+
+function updateDetail(id) {
+  if (activeNode === id) return;
+  activeNode = id;
+  const d = nodeData[id];
+  const inner = document.getElementById('fw-detail-inner');
+  inner.style.animation = 'none'; inner.offsetHeight;
+  inner.style.animation = 'fadeSlide 0.35s ease';
+  document.getElementById('fw-num').textContent   = d.num;
+  document.getElementById('fw-role').textContent  = d.role;
+  document.getElementById('fw-title').textContent = d.title;
+  document.getElementById('fw-body').textContent  = d.body;
+}
+
+function selectNode(id) {
+  nodes.forEach(n => setColor(n.id, IDLE));
+  setColor(id, ACTIVE);
+  updateDetail(id);
+}
+
+function animate() {
+  angle += 0.469; // 0.375 × 1.25 = +25% ещё раз
+  const rad  = angle * Math.PI / 180;
+  const svgX = 250 + 185 * Math.cos(rad);
+  const svgY = 250 + 185 * Math.sin(rad);
+
+  dotEl.setAttribute('cx', svgX);
+  dotEl.setAttribute('cy', svgY);
+
+  trailPts.push([svgX, svgY]);
+  if (trailPts.length > TRAIL_LEN) trailPts.shift();
+  trail.setAttribute('points', trailPts.map(p => p.join(',')).join(' '));
+
+  let closestId = null, minDist = Infinity;
+  nodes.forEach(n => {
+    const dist = Math.hypot(svgX - n.cx, svgY - n.cy);
+    if (dist < minDist) { minDist = dist; closestId = n.id; }
+    setColor(n.id, dist < TRIGGER ? ACTIVE : IDLE);
+  });
+  if (minDist < TRIGGER) updateDetail(closestId);
+
+  requestAnimationFrame(animate);
+}
+
+setColor(1, ACTIVE);
+updateDetail(1);
+animate();
+</script>
